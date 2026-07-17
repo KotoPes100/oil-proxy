@@ -15,13 +15,18 @@ module.exports = async (req, res) => {
     let html = response.data;
     const origin = new URL(targetUrl).origin;
 
-    // Fix double slashes mapping (e.g. //ssl.gstatic.com -> https://ssl.gstatic.com)
+    // 1. Strip Content-Security-Policy and Frame-options meta tags
+    html = html.replace(/<meta[^>]*http-equiv=["']?Content-Security-Policy["']?[^>]*>/gi, '');
+    html = html.replace(/<meta[^>]*http-equiv=["']?X-Frame-Options["']?[^>]*>/gi, '');
+
+    // 2. Kill frame-busting JS redirects
+    html = html.replace(/if\s*\(top\s*!==\s*self\)/gi, 'if(false)');
+    html = html.replace(/window\.top\.location/gi, 'window.self.location');
+    html = html.replace(/top\.location\.href/gi, 'self.location.href');
+
+    // 3. Fix paths
     html = html.replace(/(src|href)=" \/\//g, '$1="https://');
-
-    // Convert all root-relative paths (e.g. /images -> https://site.com/images)
     html = html.replace(/(src|href|action|data)="\//g, `$1="${origin}/`);
-
-    // Convert page-relative paths (e.g. images/logo.png -> https://site.com/images/logo.png)
     html = html.replace(/(src|href|action|data)="(?!http|https|data:|\/\/)/g, `$1="${origin}/`);
 
     if (!html.includes('<base')) {
