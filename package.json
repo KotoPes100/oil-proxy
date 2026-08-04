@@ -1,7 +1,13 @@
 {
   "name": "oil-proxy",
   "version": "1.0.0",
+  "description": "CORS proxy for browser",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
-    "axios": "^1.7.0"
-  }
+    "axios": "^1.6.0"
+  },
+  "license": "MIT"
 }
