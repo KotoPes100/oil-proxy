@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>🌐 Oil Browser</title>
+  <style>
+    /* ===== LAKEOS GLOBAL STYLES ===== */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+      background: transparent;
+      color: #c8e6f0;
+    }
+    
+    body::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #0a1f2e;
+        opacity: 0;
+    }
+
+    /* Glassmorphism base */
+    .glass {
+      backdrop-filter: blur(4px) saturate(110%);
+      -webkit-backdrop-filter: blur(4px) saturate(110%);
+      background: rgba(10, 30, 45, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 0.67px solid rgba(255, 255, 255, 0.12);
+      border-top: 0.67px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ===== TABS BAR ===== */
+    #tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 8px;
+      margin: 6px 8px 0 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+      flex-shrink: 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+      height: 48px;
+      border-radius: 24px;
+      background: rgba(10, 30, 45, 0.35);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    #tabs-bar::-webkit-scrollbar {
+      height: 3px;
+    }
+    #tabs-bar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px 6px 10px;
+      background: rgba(20, 50, 70, 0.5);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #b0d4e8;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      max-width: 180px;
+      min-width: 80px;
+      backdrop-filter: blur(2px);
+    }
+    .tab.active {
+      background: rgba(0, 180, 220, 0.3);
+      border-color: rgba(0, 200, 255, 0.4);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 180, 255, 0.15);
+    }
+    .tab-favicon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 4px;
+    }
+    .tab-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .tab-close {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0 2px;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .tab-close:hover {
+      color: red;
+    }
+
+    #tab-new {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 180, 220, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #7fc9e6;
+      font-size: 20px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      backdrop-filter: blur(2px);
+    }
+    #tab-new:hover {
+      background: rgba(0, 200, 255, 0.3);
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* ===== CONTROLS ===== */
+    #browser-controls {
+      display: flex;
+      gap: 6px;
+      padding: 6px 10px;
+      margin: 4px 8px 0 8px;
+      align-items: center;
+      border-radius: 30px;
+      background: rgba(10, 30, 45, 0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    #browser-controls button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.05);
+      color: #8fc9e0;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    #browser-controls button:hover {
+      background: rgba(0, 180, 220, 0.2);
+      color: #fff;
+      transform: scale(1.02);
+    }
+    #browser-controls button:active {
+      transform: scale(0.93);
+    }
+    #browser-refresh.active {
+      transform: rotate(180deg);
+    }
+
+    #browser-url {
+      flex: 1;
+      padding: 8px 16px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      color: #d4edf7;
+      font-size: 15px;
+      outline: none;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(2px);
+      transition: border-color 0.3s;
+      min-width: 0;
+    }
+    #browser-url:focus {
+      border-color: rgba(0, 200, 255, 0.3);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+    }
+    #browser-url::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+      font-weight: 300;
+    }
+
+    /* ===== CONTENT AREA ===== */
+    #browser-content-wrapper {
+      position: relative;
+      margin: 6px 8px 8px 8px;
+      flex: 1;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #0a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      height: calc(100vh - 130px);
+    }
+    
+    #browser-content-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .tab-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #0f1f2b;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .tab-iframe.active {
+      display: block;
+    }
+
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00c8ff, #00ffc8, #00c8ff);
+      background-size: 200% 100%;
+      animation: loading 1.2s ease-in-out infinite;
+      z-index: 100;
+      display: none;
+      border-radius: 4px;
+      opacity: 0.8;
+    }
+    @keyframes loading {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .tab { max-width: 100px; min-width: 60px; font-size: 11px; padding: 4px 10px; }
+      #browser-controls button { width: 32px; height: 32px; font-size: 16px; }
+      #browser-url { font-size: 13px; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TABS -->
+  <div id="tabs-bar" class="glass"></div>
+
+  <!-- CONTROLS -->
+  <div id="browser-controls" class="glass">
+    <button id="browser-back" title="Back">←</button>
+    <button id="browser-forward" title="Forward">→</button>
+    <button id="browser-refresh" title="Refresh">↻</button>
+    <button id="browser-home" title="Home">⌂</button>
+    <input id="browser-url" type="text" placeholder="Search or enter address..." enterkeyhint="go" />
+  </div>
+
+  <!-- CONTENT -->
+  <div id="browser-content-wrapper" class="glass">
+    <div id="loading-overlay" class="loading-overlay"></div>
+    <div id="browser-content-container"></div>
+  </div>
+
+  <script>
+    (function() {
+      // ========== STATE ==========
+      let browserTabs = [];
+      let currentTabId = null;
+      const STORAGE_KEY = 'lakeBrowserTabs';
+      let loadingTimeout = null;
+      let isFirstLoad = true;
+
+      // ========== DOM REFS ==========
+      const tabsBar = document.getElementById('tabs-bar');
+      const container = document.getElementById('browser-content-container');
+      const browserUrl = document.getElementById('browser-url');
+      const browserBack = document.getElementById('browser-back');
+      const browserForward = document.getElementById('browser-forward');
+      const browserRefresh = document.getElementById('browser-refresh');
+      const browserHome = document.getElementById('browser-home');
+      const loadingOverlay = document.getElementById('loading-overlay');
+
+      // ========== PROXY & HELPERS ==========
+      function getProxiedUrl(url) {
+        if (!url || url.startsWith('about:') || url === 'search.html' || url.startsWith('search.html') || url.endsWith('.html') || url.startsWith('data:')) {
+          return url;
+        }
+        return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+      }
+
+      function getFavicon(url) {
+        try {
+          const u = new URL(url);
+          return `https://www.google.com/s2/favicons?domain=${u.hostname}&sz=16`;
+        } catch { return ''; }
+      }
+
+      function showLoading() {
+        loadingOverlay.style.display = 'block';
+        browserRefresh.classList.add('active');
+        if (loadingTimeout) clearTimeout(loadingTimeout);
+        loadingTimeout = setTimeout(() => hideLoading(), 10000);
+      }
+
+      function hideLoading() {
+        loadingOverlay.style.display = 'none';
+        browserRefresh.classList.remove('active');
+        if (loadingTimeout) {
+          clearTimeout(loadingTimeout);
+          loadingTimeout = null;
+        }
+      }
+      
+      function getErrorPageHTML(title, code, message) {
+
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>${title}</title>
+      <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+          margin: 0;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(1100deg, #045, #047, #08d);
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          color: #003;
+        }
+        .error-container {
+          padding: 40px;
+          border-radius: 16px;
+          background: rgba(0, 150,150,0.5);
+          border: 1px solid skyblue;
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+          max-width: 480px;
+          width: 90%;
+          text-align: center;
+          animation: fadeIn 0.4s ease-out;
+        }
+        .error-code {
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: #003;
+          margin-bottom: 8px;
+        }
+        .error-title {
+          font-size: 24px;
+          margin: 0 0 16px 0;
+          font-weight: 600;
+        }
+        .error-message {
+          font-size: 15px;
+          line-height: 1.6;
+          opacity: 0.8;
+          margin-bottom: 24px;
+        }
+        .retry-btn {
+          background: rgba(56, 189, 248, 0.15);
+          border: 1px solid deepskyblue;
+          color: #003;
+          padding: 10px 24px;
+          border-radius: 20px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          height: 40px;
+        }
+        .retry-btn:hover {
+          background: deepskyblue;
+          color: #051017;
+          box-shadow: 0 0 15px #003 55;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="error-container">
+        <div class="error-code">${code}</div>
+        <h1 class="error-title">${title}</h1>
+        <div class="error-message">${message}</div>
+        <button class="retry-btn" onclick="window.parent.postMessage({type: 'lakeRetryTab'}, '*')">Try again</button>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+      // ========== STORAGE ==========
+      function saveTabs() {
+        try {
+          const data = browserTabs.map(t => ({
+            id: t.id, url: t.url, title: t.title, favicon: t.favicon,
+            history: t.history.map(h => ({ url: h.url })),
+            historyIndex: t.historyIndex, active: t.active
+          }));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) { /* ignore */ }
+      }
+
+      function loadTabs() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              browserTabs = parsed.map(t => {
+                t.history = t.history.map(h => ({ url: h.url || h, srcdoc: null }));
+                return t;
+              });
+              const active = browserTabs.find(t => t.active) || browserTabs[0];
+              currentTabId = active.id;
+              browserTabs.forEach(tab => createIframeForTab(tab));
+              renderTabsBar();
+              showTab(currentTabId, true);
+              return true;
+            }
+          }
+        } catch (e) { /* ignore */ }
+        return false;
+      }
+
+      // ========== IFRAME MANAGEMENT ==========
+      function createIframeForTab(tab) {
+        const iframe = document.createElement('iframe');
+        iframe.className = 'tab-iframe' + (tab.active ? ' active' : '');
+        iframe.dataset.tabId = tab.id;
+        iframe.sandbox = 'allow-scripts allow-forms allow-same-origin allow-popups';
+        container.appendChild(iframe);
+        tab.iframe = iframe;
+        return iframe;
+      }
+
+      // ========== TAB MANAGEMENT ==========
+      function createTab(url = 'search.html', title = 'New Tab') {
+        const id = 'tab-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+        browserTabs.forEach(t => t.active = false);
+        const tab = {
+          id, url, title,
+          favicon: '',
+          history: [{ url, srcdoc: null }],
+          historyIndex: 0,
+          active: true,
+          iframe: null
+        };
+        browserTabs.push(tab);
+        createIframeForTab(tab);
+        currentTabId = id;
+        renderTabsBar();
+        showTab(id, false);
+        saveTabs();
+        return id;
+      }
+
+      function closeTab(tabId) {
+        const idx = browserTabs.findIndex(t => t.id === tabId);
+        if (idx === -1) return;
+        const wasActive = browserTabs[idx].active;
+        const tab = browserTabs[idx];
+        
+        if (tab.iframe && tab.iframe.parentNode) {
+          tab.iframe.parentNode.removeChild(tab.iframe);
+        }
+        
+        browserTabs.splice(idx, 1);
+        if (browserTabs.length === 0) {
+          createTab('search.html', 'New Tab');
+        } else if (wasActive) {
+          const newIdx = Math.min(idx, browserTabs.length - 1);
+          browserTabs[newIdx].active = true;
+          showTab(browserTabs[newIdx].id, true);
+        }
+        renderTabsBar();
+        saveTabs();
+      }
+
+      // ========== NAVIGATION ==========
+      function navigateTo(url, tabId) {
+        const tab = browserTabs.find(t => t.id === (tabId || currentTabId));
+        if (!tab) return;
+
+        let clean = url.trim();
+        if (!clean) clean = 'search.html';
+        
+        // Проверяем, является ли это локальным файлом или поисковым запросом
+        const isLocalFile = clean.startsWith('search.html') || clean.startsWith('about:') || clean.startsWith('data:') || clean.endsWith('.html');
+        const isSearchQuery = !clean.startsWith('http://') && !clean.startsWith('https://') && !isLocalFile;
+        
+        if (isSearchQuery) {
+          if (!clean.includes('.') || clean.includes(' ')) {
+            clean = 'search.html#query=' + encodeURIComponent(clean) + '&page=1&type=text';
+          } else {
+            clean = 'https://' + clean;
+          }
+        }
+
+        tab.url = clean;
+        browserUrl.value = clean;
+
+        if (!tab.history[tab.historyIndex] || tab.history[tab.historyIndex].url !== clean) {
+          tab.history = tab.history.slice(0, tab.historyIndex + 1);
+          tab.history.push({ url: clean, srcdoc: null });
+          tab.historyIndex = tab.history.length - 1;
+        }
+
+        tab.title = 'Loading...';
+        renderTabsBar();
+        showLoading();
+        updateIframe(clean, tab.id, false);
+        saveTabs();
+      }
+
+      function showTab(tabId, useCache = false) {
+        const tab = browserTabs.find(t => t.id === tabId);
+        if (!tab) return;
+        browserTabs.forEach(t => t.active = t.id === tabId);
+        currentTabId = tabId;
+        browserUrl.value = tab.url;
+        
+        document.querySelectorAll('.tab-iframe').forEach(el => el.classList.remove('active'));
+        if (tab.iframe) tab.iframe.classList.add('active');
+        
+        renderTabsBar();
+        showLoading();
+        updateIframe(tab.url, tab.id, useCache);
+        saveTabs();
+      }
+
+      // ========== IFRAME RENDER ==========
+      function updateIframe(url, tabId, useCache = false) {
+        const tab = browserTabs.find(t => t.id === tabId);
+        if (!tab || !tab.iframe) return;
+
+        if (url.startsWith('search.html') || url.startsWith('about:') || url.startsWith('data:')) {
+          // Принудительно перезагружаем iframe для search.html
+          tab.iframe.removeAttribute('srcdoc');
+          tab.iframe.src = 'about:blank';
+          setTimeout(() => {
+            tab.iframe.src = url;
+          }, 50);
+          hideLoading();
+          return;
+        }
+
+        if (useCache && tab.history[tab.historyIndex] && tab.history[tab.historyIndex].srcdoc) {
+          tab.iframe.srcdoc = tab.history[tab.historyIndex].srcdoc;
+          hideLoading();
+          return;
+        }
+
+const proxyChain = [
+  'https://oil-proxy-kappa.vercel.app/api/proxy?url=' + encodeURIComponent(url)
+];
+
+        const injectScript = `
+          <script>
+            (function() {
+              // Intercept link clicks
+              document.addEventListener('click', function(e) {
+                let el = e.target;
+                while (el && el !== document) {
+                  if (el.tagName === 'A' && el.href) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.parent.postMessage({
+                      type: 'navigate',
+                      data: { url: el.href },
+                      tabId: '${tabId}'
+                    }, '*');
+                    return false;
+                  }
+                  el = el.parentElement;
+                }
+              }, true);
+
+              // Intercept form submissions
+              document.addEventListener('submit', function(e) {
+                const form = e.target;
+                e.preventDefault();
+                e.stopPropagation();
+
+                const action = form.action || window.location.href;
+                const method = (form.method || 'GET').toUpperCase();
+                
+                const formData = new FormData(form);
+                const params = new URLSearchParams();
+                for (const pair of formData.entries()) {
+                  params.append(pair[0], pair[1]);
+                }
+
+                let finalUrl = action;
+                if (method === 'GET') {
+                  const separator = action.includes('?') ? '&' : '?';
+                  finalUrl = action + separator + params.toString();
+                }
+
+                window.parent.postMessage({
+                  type: 'navigate',
+                  data: { url: finalUrl },
+                  tabId: '${tabId}'
+                }, '*');
+              }, true);
+
+              function sendTitle() {
+                const t = document.title;
+                if (t && t !== 'Loading...') {
+                  window.parent.postMessage({
+                    type: 'titleChange',
+                    data: { title: t },
+                    tabId: '${tabId}'
+                  }, '*');
+                }
+              }
+              document.addEventListener('DOMContentLoaded', sendTitle);
+              const observer = new MutationObserver(sendTitle);
+              const headEl = document.querySelector('head');
+              if (headEl) observer.observe(headEl, { subtree: true, childList: true, characterData: true });
+              window.addEventListener('load', sendTitle);
+            })();
+          <\/script>
+        `;
+
+function tryFetch(proxyIndex) {
+// 1. Handle total blocking (if no proxy succeeds)
+if (proxyIndex >= proxyChain.length) {
+const errorTitle = 'Access to resource blocked';
+const errorCode = 'ERR_BLOCKED_BY_RESPONSE';
+const errorMsg = "All available CORS gateways rejected the request. The site's security policy (SAMEORIGIN/CSP) prohibits its display within a frame.";
+
+tab.iframe.removeAttribute('src');
+tab.iframe.srcdoc = getErrorPageHTML(errorTitle, errorCode, errorMsg, false);
+tab.title = errorTitle;
+renderTabsBar();
+hideLoading();
+return;
+ }
+
+           fetch(proxyChain[proxyIndex])
+             .then(res => {
+               // If the server responded with an error (404, 500, etc.)
+               if (!res.ok) {
+                 throw new Error('HTTP_' + res.status);
+               }
+               return res.text();
+             })
+             .then(html => {
+               let processed = html;
+               const injection = baseTag + injectScript;
+               if (html.includes('<head>')) {
+                 processed = html.replace('<head>', '<head>' + injection);
+               } else if (html.includes('<html>')) {
+                 processed = html.replace('<html>', '<html>' + injection);
+               } else {
+                 processed = injection + html;
+               }
+              
+               if  (tab.history[tab.historyIndex]) {
+tab.history[tab.historyIndex].srcdoc = processed;
+}
+
+tab.iframe.removeAttribute('src');
+tab.iframe.srcdoc = processed;
+hideLoading();
+})
+.catch(err => {
+console.warn(`Proxy ${proxyIndex} failed (${proxyChain[proxyIndex]}), trying next...`, err);
+
+// 2. Handling 404 error (Emerald Green Screen)
+if (err.message.includes('404')) {
+const errorTitle = 'Page not found';
+const errorCode = 'HTTP 404 NOT FOUND';
+const errorMsg = 'The requested address does not exist on the remote server';
+
+tab.iframe.removeAttribute('src');
+tab.iframe.srcdoc = getErrorPageHTML(errorTitle, errorCode, errorMsg, true);
+tab.title = errorTitle;
+renderTabsBar();
+hideLoading();
+return;
+}
+
+// 3. Handling server failures (Blue Screen of Death)
+if (err.message.includes('500') || err.message.includes('502') || err.message.includes('503')) {
+const errorTitle = 'Server error';
+const errorCode = 'HTTP 500 INTERNAL SERVER ERROR';
+const errorMsg = 'The remote server encountered an error and was unable to process the request.';
+
+ tab.iframe.removeAttribute('src');
+tab.iframe.srcdoc = getErrorPageHTML(errorTitle, errorCode, errorMsg, false);
+tab.title = errorTitle;
+renderTabsBar();
+hideLoading();
+return;
+}
+
+// If the proxy simply failed, try the next one in the chain.
+tryFetch(proxyIndex + 1);
+});
+}
+
+tryFetch(0);      }
+
+      // ========== RENDER TABS UI ==========
+      function renderTabsBar() {
+        tabsBar.innerHTML = '';
+        browserTabs.forEach(tab => {
+          const div = document.createElement('div');
+          div.className = 'tab' + (tab.active ? ' active' : '');
+          div.dataset.tabId = tab.id;
+
+          const fav = document.createElement('div');
+          fav.className = 'tab-favicon';
+          fav.style.backgroundImage = tab.favicon ? `url(${tab.favicon})` : `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23668"%3E%3Ccircle cx="12" cy="12" r="10"/%3E%3C/svg%3E')`;
+
+          const title = document.createElement('span');
+          title.className = 'tab-title';
+          title.textContent = tab.title || 'New Tab';
+
+          const close = document.createElement('span');
+          close.className = 'tab-close';
+          close.textContent = '✕';
+
+          div.appendChild(fav);
+          div.appendChild(title);
+          div.appendChild(close);
+
+          div.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('tab-close')) showTab(tab.id, true);
+          });
+          close.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeTab(tab.id);
+          });
+
+          tabsBar.appendChild(div);
+        });
+
+        const newBtn = document.createElement('button');
+        newBtn.id = 'tab-new';
+        newBtn.textContent = '+';
+        newBtn.addEventListener('click', () => createTab('search.html', 'New Tab'));
+        tabsBar.appendChild(newBtn);
+      }
+
+      // ========== MESSAGE HANDLER ==========
+      window.addEventListener('message', (e) => {
+        const msg = e.data;
+        if (!msg || typeof msg !== 'object') return;
+        
+        const isFromOurIframe = browserTabs.some(t => t.iframe && t.iframe.contentWindow === e.source);
+        if (!isFromOurIframe) return;
+
+        if (msg.type === 'navigate' && msg.data && msg.data.url) {
+          navigateTo(msg.data.url, msg.tabId || currentTabId);
+        } else if (msg.type === 'titleChange' && msg.data && msg.data.title) {
+          const tab = browserTabs.find(t => t.id === (msg.tabId || currentTabId));
+          if (tab && msg.data.title && msg.data.title !== 'Loading...') {
+            tab.title = msg.data.title.length > 28 ? msg.data.title.substring(0, 25) + '…' : msg.data.title;
+            tab.favicon = getFavicon(tab.url);
+            renderTabsBar();
+            saveTabs();
+          }
+        } else if (msg.type === 'loadComplete') {
+          hideLoading();
+} else if (msg.type === 'hashChange' && msg.url) {
+  const tab = browserTabs.find(t => t.id === (msg.tabId || currentTabId));
+  if (tab) {
+    tab.url = msg.url;
+    browserUrl.value = msg.url;
+    if (tab.history[tab.historyIndex]) {
+      tab.history[tab.historyIndex].url = msg.url;
+    }
+    saveTabs();
+  }
+}
+      });
+
+      // ========== UI EVENT BINDINGS ==========
+      browserUrl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const val = browserUrl.value.trim();
+          if (val) navigateTo(val);
+        }
+      });
+
+      browserBack.addEventListener('click', () => {
+        const tab = browserTabs.find(t => t.id === currentTabId);
+        if (!tab || tab.historyIndex <= 0) return;
+        tab.historyIndex--;
+        tab.url = tab.history[tab.historyIndex].url;
+        showTab(tab.id, true);
+      });
+
+      browserForward.addEventListener('click', () => {
+        const tab = browserTabs.find(t => t.id === currentTabId);
+        if (!tab || tab.historyIndex >= tab.history.length - 1) return;
+        tab.historyIndex++;
+        tab.url = tab.history[tab.historyIndex].url;
+        showTab(tab.id, true);
+      });
+
+      browserRefresh.addEventListener('click', () => {
+        const tab = browserTabs.find(t => t.id === currentTabId);
+        if (tab) showTab(tab.id, false);
+      });
+
+      browserHome.addEventListener('click', () => {
+        navigateTo('search.html');
+      });
+
+      // ========== INIT ==========
+      function init() {
+        const hasSaved = loadTabs();
+        if (!hasSaved) {
+          createTab('search.html', 'New Tab');
+        }
+        if (isFirstLoad) {
+          isFirstLoad = false;
+          setTimeout(() => browserUrl.focus(), 300);
+        }
+      }
+
+      if (document.readyState === 'complete') {
+        setTimeout(init, 50);
+      } else {
+        window.addEventListener('load', () => setTimeout(init, 50));
+      }
+
+      // ====== EXTERNAL NAVIGATION HOOK ======
+      window.lakeBrowser = {
+        navigate: function(url) {
+          if (browserTabs.length === 0) {
+            createTab(url, 'Page');
+          } else {
+            navigateTo(url);
+          }
+          window.focus();
+        },
+        openInNewTab: function(url) {
+          createTab(url, 'Page');
+        }
+      };
+
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'lakeNavigate' && e.data.url) {
+          window.lakeBrowser.navigate(e.data.url);
+        }
+      });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'lakeOpenNewTab' && e.data.url) {
+        window.lakeBrowser.openInNewTab(e.data.url);
+      } 
+      const msg = e.data;
+if (!msg) return;
+if (msg.type === 'tabMetaChange') {
+  const tab = browserTabs.find(t => t.id === (msg.tabId || currentTabId));
+  if (tab) {
+    // 1. Обновляем заголовок в объекте вкладки
+    if (msg.title) {
+      tab.title = msg.title;
+    }
+    
+    // 2. Если у тебя в объекте вкладки есть поле для иконки (например, tab.icon):
+    if (msg.icon) {
+      tab.icon = msg.icon; 
+    }
+
+    // 3. Перерисовываем панель вкладок, чтобы изменения отобразились на экране
+    renderTabsBar();
+  }
+  if (msg.type === 'lakeRetryTab') {
+  // Просто перезапускаем загрузку текущего URL вкладки
+  const tab = browserTabs.find(t => t.id === currentTabId);
+  if (tab) {
+    updateIframe(tab.url, tab.id);
+  }
+}
+}
+    });
+    })();
+  </script>
+</body>
+</html>

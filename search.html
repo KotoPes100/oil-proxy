@@ -1,0 +1,1036 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1" />  
+<title>🐈cat's search🔍</title>  
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>  
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzgwIiB2ZXJzaW9uPSIxLjAiPg0KICA8cGF0aCBkPSJNIDE1MS4zNDkwNCwzMDcuMjA0NTUgTCAyNjQuMzQ5MDQsMzA3LjIwNDU1IEMgMjY0LjM0OTA0LDI5MS4xNDA5NiAyNjMuMjAyMSwyODcuOTU0NTUgMjM2LjU5OTA0LDI4Ny45NTQ1NSBDIDI0MC44NDkwNCwyNzUuMjA0NTUgMjU4LjEyNDI0LDI0NC4zNTgwOCAyNjcuNzI0MDQsMjQ0LjM1ODA4IEMgMjc2LjIxNzA3LDI0NC4zNTgwOCAyODYuMzQ5MDQsMjQ0LjgyNTkyIDI4Ni4zNDkwNCwyNjQuMjA0NTUgQyAyODYuMzQ5MDQsMjg2LjIwNDU1IDMyMy4zNzE3MSwzMjEuNjc1NDcgMzMyLjM0OTA0LDMwNy4yMDQ1NSBDIDM0NS43Mjc2OSwyODUuNjM4OTcgMzA5LjM0OTA0LDI5Mi4yMTUxNCAzMDkuMzQ5MDQsMjQwLjIwNDU1IEMgMzA5LjM0OTA0LDE2OS4wNTEzNSAzNTAuODc0MTcsMTc5LjE4MDcxIDM1MC44NzQxNywxMzkuMjA0NTUgQyAzNTAuODc0MTcsMTE5LjIwNDU1IDM0NS4zNDkwNCwxMTYuNTAzNzQgMzQ1LjM0OTA0LDEwMi4yMDQ1NSBDIDM0NS4zNDkwNCw4My4zMDY5NSAzNjEuOTk3MTcsODQuNDAzNTc3IDM1OC43NTgwNSw2OC43MzQ4NzkgQyAzNTYuNTIwNjEsNTcuOTExNjU2IDM1NC43Njk2Miw0OS4yMzE5OSAzNTMuNDY1MTYsMzYuMTQzODg5IEMgMzUyLjUzOTU5LDI2Ljg1NzMwNSAzNTIuMjQ0NTIsMTYuOTU5Mzk4IDM0Mi41OTg1NSwxNy4zNTczODIgQyAzMzEuMjY1MDUsMTcuODI0OTkyIDMyNi45NjU0OSwzNy43NzQxOSAzMDkuMzQ5MDQsMzkuMjA0NTQ5IEMgMjkxLjc2ODUxLDQwLjYzMTk5MSAyNzYuNzc4MzQsMjQuMjM4MDI4IDI2OS45NzQwNCwyNi41Nzk1NDkgQyAyNjMuMjI3MDksMjguOTAxMzM0IDI2NS4zNDkwNCw0Ny4yMDQ1NDkgMjY5LjM0OTA0LDYwLjIwNDU0OSBDIDI3NS42MzU4OCw4MC42MzY3NzEgMjg5LjM0OTA0LDEwNy4yMDQ1NSAyNjQuMzQ5MDQsMTExLjIwNDU1IEMgMjM5LjM0OTA0LDExNS4yMDQ1NSAxOTYuMzQ5MDQsMTE5LjIwNDU1IDE2NS4zNDkwNCwxNjAuMjA0NTUgQyAxMzQuMzQ5MDQsMjAxLjIwNDU1IDEzNS40OTM0MiwyNDkuMzIxMiAxMjMuMzQ5MDQsMjY0LjIwNDU1IEMgODIuNTkwNjk2LDMxNC4xNTUyOSA0MC44MjM5MTksMjkzLjY0NjI1IDQwLjgyMzkxOSwzMzUuMjA0NTUgQyA0MC44MjM5MTksMzUzLjgxMDE5IDcyLjM0OTA0NSwzNjcuMjA0NTUgNzcuMzQ5MDQ1LDM2MS4yMDQ1NSBDIDgyLjM0OTA0NSwzNTUuMjA0NTUgMzQuODYzNzY0LDMzNy4zMjU4NyA4Ny45OTU0OTIsMzE2LjIwNDU1IEMgMTMzLjM4NzExLDI5OC4xNjAxNCAxMzcuNDM5MTQsMjk0LjQ3NjYzIDE1MS4zNDkwNCwzMDcuMjA0NTUgeiINCiAgICAgICAgc3R5bGU9ImZpbGw6ZGVlcHNreWJsdWU7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjFweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxIi8+DQo8L3N2Zz4=" type="image/svg+xml">  
+<style>  
+*{ -webkit-tap-highlight-color: transparent; }
+html, body {  
+  height: 100%;  
+  margin: 0;  
+  background: deepskyblue;  
+  font-family: Arial, sans-serif;  
+}  
+#sInput {  
+  position: absolute;  
+  left: 5px;  
+  top: 5px;  
+  font-size: 22px;  
+  width: 50vw;  
+  height: 32px;  
+  border: 1px solid black;  
+  border-radius: 0;  
+  -webkit-border-radius-topleft: 20px;
+  -moz-border-radius-topleft: 20px;
+  outline: none;  
+  background: #fff;  
+  padding: 0 8px;  
+  box-sizing: border-box;  
+}  
+#sInput:focus {  
+  outline: 3px solid lightgreen;  
+  border: 1px solid black;  
+  box-shadow: 0 0 5px rgba(51,153,204,0.5);  
+}  #sButton {
+position: absolute;
+left: calc(50vw + 10px);
+top: 5px;
+font-size: 22px;
+width: 45px;
+height: 32px;
+background: none;
+border: none;
+cursor: pointer;
+border-radius: 0;
+}
+
+#xBtn {
+position: absolute;
+left: calc(50vw - 30px);
+top: 5px;
+width: 22px;
+height: 32px;
+background: none;
+border: none;
+cursor: pointer;
+font-size: 19px;
+color: #333;
+}
+
+#resultsDiv {
+position: absolute;
+left: 5px;
+top: 43px;
+background-color: white;
+width: calc(100vw - 10px);
+height: calc(100% - 65px);
+overflow-y: auto;
+font-size: 20px;
+box-sizing: border-box;
+padding: 10px 14px;
+}
+
+/* Ссылки */
+#resultsDiv a {
+color: green;
+text-decoration: none;
+}
+#resultsDiv a:visited {
+color: red;
+}
+
+#pagination {
+position: absolute;
+left: 5px;
+bottom: 8px;
+width: calc(100vw - 10px);
+display: flex;
+justify-content: space-between;
+z-index: 2;
+}
+#lastBtn, #moreBtn {
+position: fixed;
+bottom: 0px;
+height: 21px;
+padding: 0 15px;
+font-size: 17px;
+background: linear-gradient(to bottom, #00ffcc, lightgreen);
+border: none;
+color: black;
+cursor: pointer;
+min-width: 110px;
+border-radius: 0;
+z-index: 1000;
+}
+#lastBtn:disabled, #moreBtn:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+display: none;
+}
+
+#fullscreen-container {
+backdrop-filter: blur(5px) !important;
+background-color: rgba(0,0,0,0.3);
+}
+#fullscreen-container button {
+outline: none !important;
+}
+
+/* Кастомный селект */
+.custom-select-container {
+position: absolute;
+left: calc(50vw + 60px);
+top: 5px;
+height: 32px;
+font-size: 16px;
+border: 1px solid black;
+border-radius: 0;
+background: linear-gradient(to bottom, #00ffcc, lightgreen);
+cursor: pointer;
+width: 80px;
+z-index: 10;
+}
+
+.select-selected {
+height: 32px;
+padding: 0 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: linear-gradient(to bottom, #00ffcc, lightgreen);
+color: black;
+font-size: 16px;
+line-height: 1;
+user-select: none;
+}
+
+.select-selected::after {
+content: '▼';
+margin-left: 5px;
+font-size: 12px;
+}
+
+.select-items {
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+background: deepskyblue;
+border: 1px solid black;
+border-top: none;
+border-radius: 0 0 0 0;
+list-style: none;
+padding: 0;
+margin: 0;
+max-height: 120px;
+overflow-y: auto;
+opacity: 0;
+visibility: hidden;
+transform: translateY(-10px);
+transition: all 0.2s ease;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.select-items.show {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+
+.select-items li {
+padding: 8px 10px;
+cursor: pointer;
+font-size: 16px;
+transition: background 0.2s;
+text-align: center;
+}
+
+.select-items li:hover {
+background: #00ffcc;
+}
+
+.select-items li.selected {
+background: linear-gradient(to bottom, #00ffcc, lightgreen);
+color: black;
+font-weight: bold;
+}
+#svg2{
+max-width: calc(100vw - 38px);
+}
+#lastImg, #nextImg{
+position: absolute;
+top: 50%;
+transform: translate(0, -50%);
+backdrop-filter: blur(14px) saturate(160%) !important;
+-webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+background: rgba(255, 255, 255, 0.12);
+border: 1px solid rgba(255, 255, 255, 0.28);
+border-radius: 25px;
+height: 50px;
+width: 50px;
+font-size: 32px;
+cursor: pointer;
+color: deepskyblue;
+font-weight: bold;
+z-index: 1000;
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+</style>
+
+</head>  
+<body>  
+  <input id="sInput" placeholder="Search the Internet" type="text" />  
+  <button id="xBtn" title="Clear input">×</button>  
+  <button id="sButton" title="Search">🔍</button>    <!-- Кастомный селект вместо <select> -->    <div class="custom-select-container" id="toggleSelect">  
+    <div class="select-selected" id="selectDisplay">text</div>  
+    <ul class="select-items" id="selectItems">  
+      <li data-value="text" class="selected">text</li>  
+      <li data-value="image">image</li>  
+      <li data-value="video">video <small style="color: red;">YouTube</small></li>  
+    </ul>  
+  </div>    <div id="resultsDiv"><p style="color: blue; font-family: sans-serif; font-size: 24px; ">≈^•~•^≈</p>  
+<svg  
+   xmlns="http://www.w3.org/2000/svg"  
+   width="400"  
+   height="380"  
+   id="svg2">  
+  <defs  
+     id="defs5" />  
+  <path  
+     d="M 151.34904,307.20455 L 264.34904,307.20455 C 264.34904,291.14096 263.2021,287.95455 236.59904,287.95455 C 240.84904,275.20455 258.12424,244.35808 267.72404,244.35808 C 276.21707,244.35808 286.34904,244.82592 286.34904,264.20455 C 286.34904,286.20455 323.37171,321.67547 332.34904,307.20455 C 345.72769,285.63897 309.34904,292.21514 309.34904,240.20455 C 309.34904,169.05135 350.87417,179.18071 350.87417,139.20455 C 350.87417,119.20455 345.34904,116.50374 345.34904,102.20455 C 345.34904,83.30695 361.99717,84.403577 358.75805,68.734879 C 356.52061,57.911656 354.76962,49.23199 353.46516,36.143889 C 352.53959,26.857305 352.24452,16.959398 342.59855,17.357382 C 331.26505,17.824992 326.96549,37.77419 309.34904,39.204549 C 291.76851,40.631991 276.77834,24.238028 269.97404,26.579549 C 263.22709,28.901334 265.34904,47.204549 269.34904,60.204549 C 275.63588,80.636771 289.34904,107.20455 264.34904,111.20455 C 239.34904,115.20455 196.34904,119.20455 165.34904,160.20455 C 134.34904,201.20455 135.49342,249.3212 123.34904,264.20455 C 82.590696,314.15529 40.823919,293.64625 40.823919,335.20455 C 40.823919,353.81019 72.349045,367.20455 77.349045,361.20455 C 82.349045,355.20455 34.863764,337.32587 87.995492,316.20455 C 133.38711,298.16014 137.43914,294.47663 151.34904,307.20455 z "  
+     style="fill:black;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"  
+     id="path1891" />  
+</svg>  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -1 11 17" width="500" height="400" style="transform: scale(1, -1);">
+  <polyline fill="none" stroke="orange" stroke-width="0.15"
+    points="-2,0 0,2 -2,6 0,8 -2,9 -2,12 -1,11 1,11 2,12 2,9 0,8 2,6 5,5 5,0 7,6 6,0"/>
+    <circle cx="-0" cy="9" r="0.12" fill="pink" />
+    <circle cx="1" cy="10" r="0.25" fill="lightgreen" />
+    <circle cx="-1" cy="10" r="0.25" fill="lightgreen" />
+    <ellipse cx="1" cy="10" rx="0.05" ry="0.12" fill="black" />
+<ellipse cx="-1" cy="10" rx="0.05" ry="0.12" fill="black" />
+</svg>
+</div>  
+    <button id="lastBtn" disabled style="left: 0px;">← Previous page</button>  
+    <button id="moreBtn" disabled style="right: 0px;">Next page →</button>  <script>  
+// Переменные  
+const sInput = document.getElementById('sInput');  
+const sButton = document.getElementById('sButton');  
+const xBtn = document.getElementById('xBtn');  
+const selectContainer = document.getElementById('toggleSelect');  
+const selectDisplay = document.getElementById('selectDisplay');  
+const selectItems = document.getElementById('selectItems');  
+const resultsDiv = document.getElementById('resultsDiv');  
+const moreBtn = document.getElementById('moreBtn');  
+const lastBtn = document.getElementById('lastBtn');  
+  
+let searchType = 'text';  
+let currentStart = 1;  
+let lastQuery = '';  
+const resultsPerPage = 10;  
+  
+// Ваши ключи API (замените на свои!)  
+const apiList = [  
+  { apiKey: 'AIzaSyAENrvFUwtbNaLlBwlCvWnt_BcuJT85wvE', cx:'9136f25bfcef640c4'},  
+  { apiKey: 'AIzaSyDgRD8KAiy47yp6ZFlz5dFevF8wDY0v5xE', cx: '9136f25bfcef640c4'},  
+  { apiKey: "AIzaSyAj3s_Am1DK3csQzMfM-jXuHQ7aGIQvVlU", cx: '9136f25bfcef640c4'},  
+];  
+let currentApiIndex = 0;  
+  
+const YOUTUBE_API_KEY = 'AIzaSyCJ8oNNTIfOIUe_KREIwLRVEM-kULLH0kU';  
+const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';  
+  
+let youtubeNextPageToken = null;  
+let youtubePrevPageToken = null;  
+window.currentImages = [];  
+  
+// Кастомный селект  
+function initCustomSelect() {  
+  selectDisplay.textContent = 'text';  
+  selectDisplay.dataset.value = 'text';  
+    
+  selectDisplay.addEventListener('click', toggleSelectList);  
+    
+  selectItems.querySelectorAll('li').forEach(li => {  
+    li.addEventListener('click', selectOption);  
+  });  
+    
+  document.addEventListener('click', (e) => {  
+    if (!selectContainer.contains(e.target)) {  
+      selectItems.classList.remove('show');  
+    }  
+  });  
+}  
+  
+function toggleSelectList() {  
+  selectItems.classList.toggle('show');  
+}  
+  
+function selectOption(e) {  
+  const value = e.currentTarget.dataset.value;  
+  const text = e.currentTarget.textContent;  
+    
+  selectDisplay.textContent = value;  
+  selectDisplay.dataset.value = value;  
+    
+  selectItems.querySelectorAll('li').forEach(li => li.classList.remove('selected'));  
+  e.currentTarget.classList.add('selected');  
+    
+  selectItems.classList.remove('show');  
+    
+  searchType = value;  
+  currentStart = 1;  
+  if (lastQuery) {  
+    doSearch();  
+  }  
+}  
+  
+// Инициализация селекта  
+initCustomSelect();  
+  
+function loadParamsFromURL() {  
+  const hash = window.location.hash.substring(1);  
+  const params = new URLSearchParams(hash);  
+  const query = params.get('query');  
+  const type = params.get('type');  
+  const page = parseInt(params.get('page'), 10);  
+  
+  if (query) {  
+    sInput.value = query;  
+    lastQuery = query;  
+  }  
+  if (type) {  
+    searchType = type;  
+    selectDisplay.textContent = type;  
+    selectDisplay.dataset.value = type;  
+    selectItems.querySelectorAll('li').forEach(li => {  
+      li.classList.remove('selected');  
+      if (li.dataset.value === type) {  
+        li.classList.add('selected');  
+      }  
+    });  
+  }  
+  if (page && !isNaN(page)) {  
+    currentStart = page;  
+  }  
+}  
+  
+loadParamsFromURL();  
+  
+if (lastQuery) {  
+  doSearch();  
+}  
+  
+// Очистка input и сброс состояния  
+xBtn.addEventListener('click', () => {  
+  sInput.value = '';  
+  resultsDiv.innerHTML = `<p style="color: blue; font-family: sans-serif; font-size: 24px;">≈^•~•^≈</p>  
+<svg  
+   xmlns="http://www.w3.org/2000/svg"  
+   width="400"  
+   height="380"  
+   id="svg2">  
+  <defs  
+     id="defs5" />  
+  <path  
+     d="M 151.34904,307.20455 L 264.34904,307.20455 C 264.34904,291.14096 263.2021,287.95455 236.59904,287.95455 C 240.84904,275.20455 258.12424,244.35808 267.72404,244.35808 C 276.21707,244.35808 286.34904,244.82592 286.34904,264.20455 C 286.34904,286.20455 323.37171,321.67547 332.34904,307.20455 C 345.72769,285.63897 309.34904,292.21514 309.34904,240.20455 C 309.34904,169.05135 350.87417,179.18071 350.87417,139.20455 C 350.87417,119.20455 345.34904,116.50374 345.34904,102.20455 C 345.34904,83.30695 361.99717,84.403577 358.75805,68.734879 C 356.52061,57.911656 354.76962,49.23199 353.46516,36.143889 C 352.53959,26.857305 352.24452,16.959398 342.59855,17.357382 C 331.26505,17.824992 326.96549,37.77419 309.34904,39.204549 C 291.76851,40.631991 276.77834,24.238028 269.97404,26.579549 C 263.22709,28.901334 265.34904,47.204549 269.34904,60.204549 C 275.63588,80.636771 289.34904,107.20455 264.34904,111.20455 C 239.34904,115.20455 196.34904,119.20455 165.34904,160.20455 C 134.34904,201.20455 135.49342,249.3212 123.34904,264.20455 C 82.590696,314.15529 40.823919,293.64625 40.823919,335.20455 C 40.823919,353.81019 72.349045,367.20455 77.349045,361.20455 C 82.349045,355.20455 34.863764,337.32587 87.995492,316.20455 C 133.38711,298.16014 137.43914,294.47663 151.34904,307.20455 z "  
+     style="fill:black;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"  
+     id="path1891" />  
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -1 11 17" width="500" height="400" style="transform: scale(1, -1);">
+  <polyline fill="none" stroke="orange" stroke-width="0.15"
+    points="-2,0 0,2 -2,6 0,8 -2,9 -2,12 -1,11 1,11 2,12 2,9 0,8 2,6 5,5 5,0 7,6 6,0"/>
+    <circle cx="-0" cy="9" r="0.12" fill="pink" />
+    <circle cx="1" cy="10" r="0.25" fill="lightgreen" />
+    <circle cx="-1" cy="10" r="0.25" fill="lightgreen" />
+    <ellipse cx="1" cy="10" rx="0.05" ry="0.12" fill="black" />
+<ellipse cx="-1" cy="10" rx="0.05" ry="0.12" fill="black" />
+</svg>
+`;  
+  moreBtn.disabled = true;  
+  lastBtn.disabled = true;  
+  currentStart = 1;  
+  lastQuery = '';  
+  window.currentImages = [];  
+});  
+  
+// Запуск поиска по кнопке или Enter  
+sButton.addEventListener('click', () => startNewSearch());  
+sInput.addEventListener('keydown', e => {  
+  if (e.key === 'Enter') startNewSearch();  
+});  
+  
+function startNewSearch() {  
+  sInput.blur();  
+  const query = sInput.value.trim();  
+  if (!query) {  
+    resultsDiv.innerHTML = 'Please, enter a search query';  
+    moreBtn.disabled = true;  
+    lastBtn.disabled = true;  
+    return;  
+  }  
+  lastQuery = query;  
+  currentStart = 1;  
+  youtubeNextPageToken = null;  
+  youtubePrevPageToken = null;  
+  currentApiIndex = 0;  
+  window.currentImages = [];  
+  doSearch();  
+}  
+  
+async function doSearch() {  
+  resultsDiv.innerHTML = 'Searching...';  
+  moreBtn.disabled = true;  
+  lastBtn.disabled = true;  
+  updateURL();  
+  
+  if (searchType === 'video') {  
+    try {  
+      const params = new URLSearchParams({  
+        part: 'snippet',  
+        q: lastQuery,  
+        type: 'video',  
+        maxResults: resultsPerPage.toString(),  
+        key: YOUTUBE_API_KEY,  
+      });  
+      if (youtubeNextPageToken && currentStart > 1) {  
+        params.set('pageToken', youtubeNextPageToken);  
+      } else if (youtubePrevPageToken && currentStart < 1) {  
+        params.set('pageToken', youtubePrevPageToken);  
+      }  
+  
+      const response = await fetch(`${YOUTUBE_SEARCH_URL}?${params.toString()}`);  
+      if (!response.ok) {  
+        const errorDetails = await response.json();  
+        throw new Error(`YouTube API error: ${errorDetails.error.message || response.statusText}`);  
+      }  
+      const data = await response.json();  
+  
+      youtubeNextPageToken = data.nextPageToken || null;  
+      youtubePrevPageToken = data.prevPageToken || null;  
+  
+      displayYouTubeResults(data.items);  
+  
+      moreBtn.disabled = !youtubeNextPageToken;  
+      lastBtn.disabled = !youtubePrevPageToken;  
+    } catch (err) {  
+      resultsDiv.innerHTML = 'Error: ' + err.message + ' 😿';  
+      moreBtn.disabled = true;  
+      lastBtn.disabled = true;  
+    }  
+    return;  
+  }  
+  
+  if (currentStart > 91) {  
+    resultsDiv.innerHTML = 'These are all the results.';  
+    moreBtn.disabled = true;  
+    lastBtn.disabled = currentStart > 1 ? false : true;  
+    return;  
+  }  
+  
+  const currentApi = apiList[currentApiIndex];  
+  let url = `https://www.googleapis.com/customsearch/v1?key=${currentApi.apiKey}&cx=${currentApi.cx}&q=${encodeURIComponent(lastQuery)}&start=${currentStart}`;  
+  if (searchType === 'image') url += '&searchType=image';  
+  
+  try {  
+    const response = await fetch(url);  
+    const data = await response.json();  
+  // 🔥 СОРТИРОВКА (как у видео)
+data.items.forEach(item => {
+  item._score = scoreResult(item, lastQuery);
+});
+
+data.items = data.items
+  .sort((a, b) => b._score - a._score)
+  .filter(item => item._score > -50);
+    if (!data.items || data.items.length === 0) {  
+      // 🔥 твой scoring (как было)
+      
+      if (currentApiIndex < apiList.length - 1) {  
+        currentApiIndex++;  
+        return doSearch();  
+      } else {  
+        resultsDiv.innerHTML = 'Nothing found😿';  
+        moreBtn.disabled = true;  
+        lastBtn.disabled = true;  
+        return;  
+      }  
+    }  
+  
+    let html = '<ul style="list-style:none; padding-left: 0;">';  
+  
+    if (searchType === 'image') {  
+      data.items.forEach((item, index) => {  
+        let domain = '';  
+        try {  
+          domain = new URL(item.image.contextLink).hostname;  
+        } catch {  
+          domain = '';  
+        }  
+        html += `  
+          <li style="margin-bottom: 20px;">  
+            <img src="${item.image.thumbnailLink}" alt="${item.title}"   
+                 data-full="${item.link}" data-index="${index}"   
+                 style="width: 200px; height: auto; cursor: pointer; display: block; margin-bottom: 5px;"  
+                 class="search-image" />  
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="font-size: 18px; display: block; margin-bottom: 3px;">${item.title}</a>  
+            <small style="color: darkblue; font-size: 14px;">${domain}</small>  
+          </li>  
+        `;  
+      });  
+        
+      window.currentImages = data.items.map((item, index) => ({
+  src: item.link,
+  thumbnail: item.image?.thumbnailLink || item.pagemap?.cse_thumbnail?.[0]?.src || null,
+  title: item.title,
+  index: index
+}));
+    } else {  
+      // 🔥 TEXT с миниатюрами
+      data.items.forEach(item => {  
+        let domain = '';  
+        try {  
+          domain = new URL(item.link).hostname;  
+        } catch {  
+          domain = '';  
+        }  
+
+        let thumb = '';
+        if (item.pagemap?.cse_thumbnail?.length) {
+          thumb = item.pagemap.cse_thumbnail[0].src;
+        } else if (item.pagemap?.cse_image?.length) {
+          thumb = item.pagemap.cse_image[0].src;
+        }
+
+html += `  
+  <li style="margin-bottom: 20px; display:flex; gap:12px; align-items:flex-start;">  
+
+    <div style="flex:1;">
+      <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="font-size: 24px;">${item.title}</a><br/>  
+      <small style="color: darkblue; font-size: 16px;">${domain}</small><br/>  
+      <small style="font-size: 18px; color: #333;">${item.snippet}</small>  
+    </div>
+
+    ${thumb ? `
+      <img src="${thumb}" 
+           style="width:90px;height:90px;object-fit:cover;flex-shrink:0;"
+           onerror="this.style.display='none'">
+    ` : ''}
+
+  </li>  
+`;
+      });  
+    }  
+  
+    html += '</ul>';  
+    resultsDiv.innerHTML = html;  
+  
+    if (searchType === 'image') {  
+      resultsDiv.querySelectorAll(".search-image").forEach(img => {  
+        img.addEventListener('click', function() {  
+          const index = parseInt(this.dataset.index);  
+          openFullscreenImage(this.dataset.full, index);  
+        });  
+      });  
+    }  
+  
+    moreBtn.disabled = !(data.queries && data.queries.nextPage);  
+    lastBtn.disabled = !(data.queries && data.queries.previousPage);  
+  
+  } catch (err) {  
+    if (currentApiIndex < apiList.length - 1) {  
+      currentApiIndex++;  
+      return doSearch();  
+    } else {  
+      resultsDiv.innerHTML = 'Error: ' + err.message + ' 😿';  
+      moreBtn.disabled = true;  
+      lastBtn.disabled = true;  
+    }  
+  }  
+}
+  
+function openFullscreenImage(src, currentIndex = 0) {  
+  const existingContainer = document.getElementById('fullscreen-container');  
+  if (existingContainer) {  
+    document.body.removeChild(existingContainer);  
+  }  
+  
+  const container = document.createElement('div');  
+  container.id = 'fullscreen-container';  
+  container.style.cssText = `  
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100%;  
+    background: rgba(0,0,0,0.3); display: flex; flex-direction: column;  
+    justify-content: center; align-items: center; z-index: 9999;  
+    cursor: pointer; padding: 0;  
+  `;  
+  
+  const closeBtn = document.createElement('button');  
+  closeBtn.textContent = 'CLOSE ×';  
+  closeBtn.style.cssText = `  
+    position: absolute;
+bottom: 35px;
+left: 50%;
+transform: translate(-50%, -50%);
+backdrop-filter: blur(14px) saturate(160%) !important;
+-webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+background: rgba(255, 255, 255, 0.12);
+border: 1px solid rgba(255, 255, 255, 0.28);
+border-radius: 25px;
+height: 50px;
+width: 175px;
+font-size: 32px;
+cursor: pointer;
+color: red;
+font-weight: bold;
+z-index: 1000;
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  `;  
+  
+  container.appendChild(closeBtn);  
+    const last = document.createElement('button');  
+  last.textContent = '<';  
+  last.style.left = "50px"
+  last.id = "lastImg";
+  container.appendChild(last);  
+  
+  const next = document.createElement('button');  
+  next.id = "nextImg";
+  next.textContent = '>';  
+  next.style.right = "50px"
+  container.appendChild(next);  
+  
+  let currentImgIndex = currentIndex;  
+  
+  const img = document.createElement('img');  
+  img.src = src;  
+  img.style.cssText = `  
+    max-width: 95%; max-height: 85%; object-fit: contain;  
+    transition: opacity 0.3s;   min-width: 30%; min-height: 30%;
+  `;  
+  img.onerror = function() {
+  // Если полноразмерное изображение не загрузилось
+  const thumbnail = window.currentImages[currentImgIndex]?.thumbnail || null;
+  if (thumbnail) {
+    this.src = thumbnail; // показываем миниатюру
+  } else {
+    // fallback — котик
+    this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzgwIiB2ZXJzaW9uPSIxLjAiPg0KICA8cGF0aCBkPSJNIDE1MS4zNDkwNCwzMDcuMjA0NTUgTCAyNjQuMzQ5MDQsMzA3LjIwNDU1IEMgMjY0LjM0OTA0LDI5MS4xNDA5NiAyNjMuMjAyMSwyODcuOTU0NTUgMjM2LjU5OTA0LDI4Ny45NTQ1NSBDIDI0MC44NDkwNCwyNzUuMjA0NTUgMjU4LjEyNDI0LDI0NC4zNTgwOCAyNjcuNzI0MDQsMjQ0LjM1ODA4IEMgMjc2LjIxNzA3LDI0NC4zNTgwOCAyODYuMzQ5MDQsMjQ0LjgyNTkyIDI4Ni4zNDkwNCwyNjQuMjA0NTUgQyAyODYuMzQ5MDQsMjg2LjIwNDU1IDMyMy4zNzE3MSwzMjEuNjc1NDcgMzMyLjM0OTA0LDMwNy4yMDQ1NSBDIDM0NS43Mjc2OSwyODUuNjM4OTcgMzA5LjM0OTA0LDI5Mi4yMTUxNCAzMDkuMzQ5MDQsMjQwLjIwNDU1IEMgMzA5LjM0OTA0LDE2OS4wNTEzNSAzNTAuODc0MTcsMTc5LjE4MDcxIDM1MC44NzQxNywxMzkuMjA0NTUgQyAzNTAuODc0MTcsMTE5LjIwNDU1IDM0NS4zNDkwNCwxMTYuNTAzNzQgMzQ1LjM0OTA0LDEwMi4yMDQ1NSBDIDM0NS4zNDkwNCw4My4zMDY5NSAzNjEuOTk3MTcsODQuNDAzNTc3IDM1OC43NTgwNSw2OC43MzQ4NzkgQyAzNTYuNTIwNjEsNTcuOTExNjU2IDM1NC43Njk2Miw0OS4yMzE5OSAzNTMuNDY1MTYsMzYuMTQzODg5IEMgMzUyLjUzOTU5LDI2Ljg1NzMwNSAzNTIuMjQ0NTIsMTYuOTU5Mzk4IDM0Mi41OTg1NSwxNy4zNTczODIgQyAzMzEuMjY1MDUsMTcuODI0OTkyIDMyNi45NjU0OSwzNy43NzQxOSAzMDkuMzQ5MDQsMzkuMjA0NTQ5IEMgMjkxLjc2ODUxLDQwLjYzMTk5MSAyNzYuNzc4MzQsMjQuMjM4MDI4IDI2OS45NzQwNCwyNi41Nzk1NDkgQyAyNjMuMjI3MDksMjguOTAxMzM0IDI2NS4zNDkwNCw0Ny4yMDQ1NDkgMjY5LjM0OTA0LDYwLjIwNDU0OSBDIDI3NS42MzU4OCw4MC42MzY3NzEgMjg5LjM0OTA0LDEwNy4yMDQ1NSAyNjQuMzQ5MDQsMTExLjIwNDU1IEMgMjM5LjM0OTA0LDExNS4yMDQ1NSAxOTYuMzQ5MDQsMTE5LjIwNDU1IDE2NS4zNDkwNCwxNjAuMjA0NTUgQyAxMzQuMzQ5MDQsMjAxLjIwNDU1IDEzNS40OTM0MiwyNDkuMzIxMiAxMjMuMzQ5MDQsMjY0LjIwNDU1IEMgODIuNTkwNjk2LDMxNC4xNTUyOSA0MC44MjM5MTksMjkzLjY0NjI1IDQwLjgyMzkxOSwzMzUuMjA0NTUgQyA0MC44MjM5MTksMzUzLjgxMDE5IDcyLjM0OTA0NSwzNjcuMjA0NTUgNzcuMzQ5MDQ1LDM2MS4yMDQ1NSBDIDgyLjM0OTA0NSwzNTUuMjA0NTUgMzQuODYzNzY0LDMzNy4zMjU4NyA4Ny45OTU0OTIsMzE2LjIwNDU1IEMgMTMzLjM4NzExLDI5OC4xNjAxNCAxMzcuNDM5MTQsMjk0LjQ3NjYzIDE1MS4zNDkwNCwzMDcuMjA0NTUgeiINCiAgICAgICAgc3R5bGU9ImZpbGw6ZGVlcHNreWJsdWU7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjFweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxIi8+DQo8L3N2Zz4=';
+  }
+};
+  
+  container.appendChild(img);  
+  document.body.appendChild(container);  
+
+    
+  function showImage(index) {  
+    if (index >= 0 && index < window.currentImages.length) {  
+      img.style.opacity = '0.5';  
+      img.src = window.currentImages[index].src;  
+      img.onload = function() {   
+        img.style.opacity = '1';   
+      };  
+      currentImgIndex = index;  
+    }  
+  }  
+  
+  closeBtn.onclick = function(e) {  
+    e.stopPropagation();  
+    closeFullscreen();  
+  };  
+  
+  let startX = 0;  
+  container.ontouchstart = function(e) {  
+    startX = e.touches[0].clientX;  
+  };  
+  container.ontouchend = function(e) {  
+    if (!e.changedTouches) return;  
+    const endX = e.changedTouches[0].clientX;  
+    const diffX = startX - endX;  
+    if (Math.abs(diffX) > 50) {  
+      if (diffX > 0) showImage(currentImgIndex + 1);  
+      else showImage(currentImgIndex - 1);  
+    }  
+  };  
+  
+  function keyHandler(e) {  
+    if (e.key === 'ArrowLeft') {  
+      showImage(currentImgIndex - 1);  
+    } else if (e.key === 'ArrowRight') {  
+      showImage(currentImgIndex + 1);  
+    } else if (e.key === 'Escape') {  
+      closeFullscreen();  
+    }  
+  }  
+document.getElementById("nextImg").addEventListener("click", e => {
+  showImage(currentImgIndex + 1);
+});
+
+document.getElementById("lastImg").addEventListener("click", e => {
+  showImage(currentImgIndex - 1);
+});
+  function closeFullscreen() {  
+    document.body.removeChild(container);  
+    document.removeEventListener('keydown', keyHandler);  
+  }  
+  
+  document.addEventListener('keydown', keyHandler);  
+}  
+  
+moreBtn.addEventListener('click', () => {  
+  if (searchType === 'video') {  
+    if (youtubeNextPageToken) {  
+      currentStart++;  
+      doSearch();  
+    }  
+  } else if (currentStart + resultsPerPage <= 91) {  
+    currentStart += resultsPerPage;  
+    doSearch();  
+  }  
+});  
+  
+lastBtn.addEventListener('click', () => {  
+  if (searchType === 'video') {  
+    if (youtubePrevPageToken) {  
+      currentStart = Math.max(1, currentStart - 1);  
+      doSearch();  
+    }  
+  } else if (currentStart - resultsPerPage >= 1) {  
+    currentStart -= resultsPerPage;  
+    doSearch();  
+  }  
+});  
+  
+function displayYouTubeResults(videos) {  
+  if (!videos || videos.length === 0) {  
+    resultsDiv.innerHTML = '<p>Videos not found.</p>';  
+    return;  
+  }  
+  let html = '<ul style="list-style:none; padding-left: 0;">';  
+  videos.forEach(video => {  
+    const videoId = video.id.videoId;  
+    const title = video.snippet.title;  
+    const thumbnail = video.snippet.thumbnails.medium.url;  
+    html += `  
+      <li style="margin-bottom: 20px;">  
+        <img src="${thumbnail}" alt="${title}" data-video-id="${videoId}" style="width: 300px; height: auto; cursor: pointer; display: block; margin-bottom: 5px;" class="video-thumb" />  
+        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer" style="font-size: 18px; display: block;">${title}</a>  
+      </li>  
+    `;  
+  });  
+  html += '</ul>';  
+  resultsDiv.innerHTML = html;  
+  
+  resultsDiv.querySelectorAll('.video-thumb').forEach(img => {  
+    img.addEventListener('click', function() {  
+      openFullscreenVideo(this.dataset.videoId);  
+    });  
+  });  
+}  
+  
+function openFullscreenVideo(videoId) {  
+  const container = document.createElement('div');  
+  // Задаем id, чтобы применились стили размытия #fullscreen-container из вашего CSS
+  container.id = 'fullscreen-container';  
+  container.style.cssText = `  
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100%;  
+    display: flex; flex-direction: column;  
+    justify-content: center; align-items: center; z-index: 9999;  
+    padding: 0;  
+  `;  
+  
+  // Создаем точно такую же кнопку CLOSE, как у картинок
+  const closeBtn = document.createElement('button');  
+  closeBtn.textContent = 'CLOSE ×';  
+  closeBtn.style.cssText = `  
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(14px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 25px;
+    height: 50px;
+    width: 175px;
+    font-size: 32px;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  `;  
+  
+  const iframe = document.createElement('iframe');  
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;  
+  // Ограничиваем размеры плеера, чтобы он не перекрывал кнопку закрытия
+  iframe.style.cssText = `  
+    max-width: 95%; max-height: 80%;  
+    width: 80vw; height: 45vw;
+    border: none;  
+  `;  
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';  
+  iframe.allowFullscreen = true;  
+  
+  container.appendChild(iframe);  
+  container.appendChild(closeBtn);  
+  document.body.appendChild(container);  
+  
+  function closeFullscreen() {  
+    if (document.body.contains(container)) {
+      document.body.removeChild(container);  
+    }
+    document.removeEventListener('keydown', keyHandler);  
+  }  
+  
+  closeBtn.onclick = function(e) {  
+    e.stopPropagation();  
+    closeFullscreen();  
+  };  
+  
+  function keyHandler(e) {  
+    if (e.key === 'Escape') {  
+      closeFullscreen();  
+    }  
+  }  
+  
+  document.addEventListener('keydown', keyHandler);  
+}
+  
+function updateURL() {  
+  const query = sInput.value.trim();  
+  if (query) {  
+    window.location.hash = `query=${encodeURIComponent(query)}&type=${searchType}&page=${currentStart}`;  
+    document.title = `${sInput.value} — 🐈cat's search🔍`;  
+  } else {  
+    window.location.hash = '';  
+    document.title = `🐈cat's search🔍`;  
+  }  
+}  
+function scoreResult(item, query) {
+  const k1 = 1.5;
+  const b = 0.75;
+
+  const goodDomains = [
+    "wikipedia.org",
+    "britannica.com",
+    "arxiv.org",
+    ".edu",
+    "nature.com"
+  ];
+
+  const badDomains = [
+    "instagram.com",
+    "tiktok.com",
+    "facebook.com"
+  ];
+
+  const title = (item.title || "").toLowerCase();
+  const snippet = (item.snippet || "").toLowerCase();
+  const text = title + " " + snippet;
+
+  const isExact = query.startsWith('"') && query.endsWith('"');
+  const cleanQuery = isExact ? query.slice(1, -1).toLowerCase() : query.toLowerCase();
+
+  const words = cleanQuery.split(/\s+/).filter(Boolean);
+
+  const docLength = text.split(/\s+/).length || 1;
+  const avgDocLength = 80;
+
+  let score = 0;
+
+  // -------------------------
+  // ❗ EXACT MATCH (кавычки)
+  // -------------------------
+  if (isExact) {
+    if (text.includes(cleanQuery)) {
+      score += 50;
+    } else {
+      score -=1000; // сразу выкидываем
+    }
+  }
+
+  // -------------------------
+  // 📊 BM25
+  // -------------------------
+  words.forEach(word => {
+    const regex = new RegExp(`\\b${word}\\b`, 'g');
+
+    const tfTitle = (title.match(regex) || []).length;
+    const tfSnippet = (snippet.match(regex) || []).length;
+
+    const tf = tfTitle * 2 + tfSnippet;
+
+    if (tf === 0) return;
+
+    const idf = Math.log(1 + (1 / (tf + 1)));
+
+    const numerator = tf * (k1 + 1);
+    const denominator = tf + k1 * (1 - b + b * (docLength / avgDocLength));
+
+    score += idf * (numerator / denominator);
+  });
+
+  // -------------------------
+  // 🎯 Совпадения
+  // -------------------------
+
+  // точная фраза
+  if (title.includes(cleanQuery)) score += 15;
+  if (snippet.includes(cleanQuery)) score += 5;
+
+  // все слова есть
+  const allWordsPresent = words.every(w => text.includes(w));
+  if (allWordsPresent) score += 10;
+
+  // начало заголовка
+  if (words.length && title.startsWith(words[0])) {
+    score += 5;
+  }
+
+  // -------------------------
+  // 🌍 Домены
+  // -------------------------
+
+  if (goodDomains.some(d => item.link.includes(d))) {
+    score += 8;
+  }
+    if (item.link.includes("wikipedia.org") || item.link.includes("wikimedia")) {
+      score += 500;
+    }
+        if (item.link.includes("reddit")) {
+      score -= 2.5;
+    }
+  if (badDomains.some(d => item.link.includes(d))) {
+    score -= 5;
+  }
+
+  // -------------------------
+  // 🚫 Анти-спам
+  // -------------------------
+  // переспам (одно слово много раз)
+  words.forEach(word => {
+    const count = (text.match(new RegExp(word, 'g')) || []).length;
+    if (count > 10) score -= 5;
+  });
+
+  // -------------------------
+  // 🧠 Намерение (очень простой)
+  // -------------------------
+
+  if (
+    cleanQuery.includes("что такое") ||
+    cleanQuery.includes("what is")
+  ) {
+    if (item.link.includes("wikipedia")) {
+      score += 10;
+    }
+  }
+
+  return score;
+}
+// ПЕРЕХВАТЧИК КЛИКОВ ДЛЯ LAKE BROWSER
+document.addEventListener('click', function(e) {
+  let el = e.target;
+  // Ищем клик по ссылке (тег <a>)
+  while (el && el !== document) {
+    if (el.tagName === 'A' && el.href) {
+      e.preventDefault(); // Блокируем стандартное открытие (особенно target="_blank")
+      e.stopPropagation();
+      
+      // Отправляем команду в browser.html
+      window.parent.postMessage({
+        type: 'lakeOpenNewTab', // Откроет в новой вкладке!
+        url: el.href
+      }, '*');
+      
+      return false;
+    }
+    el = el.parentElement;
+  }
+}, true);
+// Отслеживаем изменение хэша (например, #query=cat&page=2) внутри поисковика
+window.addEventListener('hashchange', function() {
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({
+      type: 'hashChange',
+      url: 'search.html' + window.location.hash
+    }, '*');
+  }
+});
+
+// Отправляем хэш сразу при загрузке страницы, если она открылась уже с ним
+if (window.location.hash && window.parent && window.parent !== window) {
+  window.parent.postMessage({
+    type: 'hashChange',
+    url: 'search.html' + window.location.hash
+  }, '*');
+}
+// Функция отправки данных вкладки в Lake Browser
+function syncTabMeta() {
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({
+      type: 'tabMetaChange',
+      title: document.title,
+      // Берем иконку из тега или передаем base64/путь напрямую
+      icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzgwIiB2ZXJzaW9uPSIxLjAiPg0KICA8cGF0aCBkPSJNIDE1MS4zNDkwNCwzMDcuMjA0NTUgTCAyNjQuMzQ5MDQsMzA3LjIwNDU1IEMgMjY0LjM0OTA0LDI5MS4xNDA5NiAyNjMuMjAyMSwyODcuOTU0NTUgMjM2LjU5OTA0LDI4Ny45NTQ1NSBDIDI0MC44NDkwNCwyNzUuMjA0NTUgMjU4LjEyNDI0LDI0NC4zNTgwOCAyNjcuNzI0MDQsMjQ0LjM1ODA4IEMgMjc2LjIxNzA3LDI0NC4zNTgwOCAyODYuMzQ5MDQsMjQ0LjgyNTkyIDI4Ni4zNDkwNCwyNjQuMjA0NTUgQyAyODYuMzQ5MDQsMjg2LjIwNDU1IDMyMy4zNzE3MSwzMjEuNjc1NDcgMzMyLjM0OTA0LDMwNy4yMDQ1NSBDIDM0NS43Mjc2OSwyODUuNjM4OTcgMzA5LjM0OTA0LDI5Mi4yMTUxNCAzMDkuMzQ5MDQsMjQwLjIwNDU1IEMgMzA5LjM0OTA0LDE2OS4wNTEzNSAzNTAuODc0MTcsMTc5LjE4MDcxIDM1MC44NzQxNywxMzkuMjA0NTUgQyAzNTAuODc0MTcsMTE5LjIwNDU1IDM0NS4zNDkwNCwxMTYuNTAzNzQgMzQ1LjM0OTA0LDEwMi4yMDQ1NSBDIDM0NS4zNDkwNCw4My4zMDY5NSAzNjEuOTk3MTcsODQuNDAzNTc3IDM1OC43NTgwNSw2OC43MzQ4NzkgQyAzNTYuNTIwNjEsNTcuOTExNjU2IDM1NC43Njk2Miw0OS4yMzE5OSAzNTMuNDY1MTYsMzYuMTQzODg5IEMgMzUyLjUzOTU5LDI2Ljg1NzMwNSAzNTIuMjQ0NTIsMTYuOTU5Mzk4IDM0Mi41OTg1NSwxNy4zNTczODIgQyAzMzEuMjY1MDUsMTcuODI0OTkyIDMyNi45NjU0OSwzNy43NzQxOSAzMDkuMzQ5MDQsMzkuMjA0NTQ5IEMgMjkxLjc2ODUxLDQwLjYzMTk5MSAyNzYuNzc4MzQsMjQuMjM4MDI4IDI2OS45NzQwNCwyNi41Nzk1NDkgQyAyNjMuMjI3MDksMjguOTAxMzM0IDI2NS4zNDkwNCw0Ny4yMDQ1NDkgMjY5LjM0OTA0LDYwLjIwNDU0OSBDIDI3NS42MzU4OCw4MC42MzY3NzEgMjg5LjM0OTA0LDEwNy4yMDQ1NSAyNjQuMzQ5MDQsMTExLjIwNDU1IEMgMjM5LjM0OTA0LDExNS4yMDQ1NSAxOTYuMzQ5MDQsMTE5LjIwNDU1IDE2NS4zNDkwNCwxNjAuMjA0NTUgQyAxMzQuMzQ5MDQsMjAxLjIwNDU1IDEzNS40OTM0MiwyNDkuMzIxMiAxMjMuMzQ5MDQsMjY0LjIwNDU1IEMgODIuNTkwNjk2LDMxNC4xNTUyOSA0MC44MjM5MTksMjkzLjY0NjI1IDQwLjgyMzkxOSwzMzUuMjA0NTUgQyA0MC44MjM5MTksMzUzLjgxMDE5IDcyLjM0OTA0NSwzNjcuMjA0NTUgNzcuMzQ5MDQ1LDM2MS4yMDQ1NSBDIDgyLjM0OTA0NSwzNTUuMjA0NTUgMzQuODYzNzY0LDMzNy4zMjU4NyA4Ny45OTU0OTIsMzE2LjIwNDU1IEMgMTMzLjM4NzExLDI5OC4xNjAxNCAxMzcuNDM5MTQsMjk0LjQ3NjYzIDE1MS4zNDkwNCwzMDcuMjA0NTUgeiINCiAgICAgICAgc3R5bGU9ImZpbGw6ZGVlcHNreWJsdWU7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjFweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxIi8+DQo8L3N2Zz4=' 
+    }, '*');
+  }
+}
+
+// Следим за динамическим изменением заголовка (через MutationObserver)
+const titleObserver = new MutationObserver(() => syncTabMeta());
+const titleElement = document.querySelector('title');
+if (titleElement) {
+  titleObserver.observe(titleElement, { childList: true, characterData: true });
+}
+
+// Отправляем мета-данные при изменении хэша и при первой загрузке
+window.addEventListener('hashchange', syncTabMeta);
+window.addEventListener('load', syncTabMeta);
+syncTabMeta();
+
+</script>  </body>  
+</html>  
